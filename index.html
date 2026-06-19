@@ -3,52 +3,88 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>SUP Atlasz</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+html,body,#map{
+  height:100%;
+  margin:0;
 }
 
-#map {
-    width: 100%;
-    height: 100%;
-}
-
-.title {
-    position: absolute;
-    top: 10px;
-    left: 50px;
-    z-index: 1000;
-    background: white;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-family: sans-serif;
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
+.title{
+  position:absolute;
+  z-index:1000;
+  top:10px;
+  left:50px;
+  background:white;
+  padding:8px 12px;
+  border-radius:8px;
+  font-family:sans-serif;
 }
 </style>
 </head>
 
 <body>
 
-<div class="title">
-    batabe 🏄 SUP Atlasz
-</div>
+<div class="title">🏄 SUP Atlasz</div>
 
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="libs/leaflet-gpx.js"></script>
 
 <script>
-const map = L.map('map').setView([47.2, 19.3], 7);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
+const map = L.map('map').setView([47.2,19.3],7);
+
+L.tileLayer(
+'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+  attribution:'© OpenStreetMap'
 }).addTo(map);
+
+const overlays = {};
+
+fetch('tracks.json')
+.then(r => r.json())
+.then(data => {
+
+  Object.keys(data).forEach(category => {
+
+    const layerGroup = L.layerGroup();
+    overlays[category] = layerGroup;
+
+    data[category].forEach(track => {
+
+      const gpx = new L.GPX(track, {
+        async: true
+      });
+
+      gpx.on('loaded', function(e) {
+
+        const name =
+          track.split('/').pop().replace('.gpx','');
+
+        e.target.bindPopup(name);
+
+      });
+
+      gpx.addTo(layerGroup);
+
+    });
+
+    layerGroup.addTo(map);
+
+  });
+
+  L.control.layers(null, overlays).addTo(map);
+
+});
+
 </script>
 
 </body>
