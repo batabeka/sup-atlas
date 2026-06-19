@@ -60,9 +60,14 @@ fetch('tracks.json')
 
     data[category].forEach(track => {
 
-      const gpx = new L.GPX(track, {
-        async: true
-      });
+        const gpx = new L.GPX(track, {
+          async: true,
+          marker_options: {
+            startIconUrl: null,
+            endIconUrl: null,
+            shadowUrl: null
+          }
+        });
 
       gpx.on('loaded', function(e) {
 
