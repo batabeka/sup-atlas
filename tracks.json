@@ -1,0 +1,16 @@
+{
+  "Duna": [
+    "gpx/Duna/duna-gemenci-erdo.gpx",
+    "gpx/Duna/duna-racalmas.gpx",
+    "gpx/Duna/duna-esztergom.gpx"
+  ],
+  "RSD": [
+    "gpx/RSD/rsd-szigetcsep.gpx"
+    "gpx/RSD/rsd-kiskunlachaza.gpx"    
+  ],
+  "Tisza-to": [
+    "gpx/Tisza-to/tisza-to-tiszavalk-amazonas.gpx"
+  ],
+  "Velencei-to": [],
+  "Egyeb": []
+}
