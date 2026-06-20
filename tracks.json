@@ -3,7 +3,10 @@
     "./gpx/Duna/duna-gemenci-erdo.gpx",
     "./gpx/Duna/duna-dunasziget.gpx"
   ],
-  "RSD": [],
+  "RSD": [
+    "./gpx/RSD/rsd-szigetcsep.gpx",
+    "./gpx/RSD/rsd-kiskunlachaza.gpx"    
+  ],
   "Tisza-to": [
     "./gpx/Tisza-to/tisza-to-tiszavalk-amazonas.gpx"
   ],
